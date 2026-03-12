@@ -26,7 +26,7 @@ import { computed, watch } from 'vue';
 
 // ── Step sequences per document type ──
 const STEP_SEQUENCES = {
-  order:    ['draft', 'approved', 'delivered'],
+  order:    ['draft', 'approved', 'partial', 'completed'],
   delivery: ['draft', 'delivered'],
   invoice:  ['draft', 'approved', 'sent', 'paid'],
   payment:  ['draft', 'confirmed'],
@@ -35,31 +35,30 @@ const STEP_SEQUENCES = {
 // ── Map status string → step index ──
 const STATUS_INDEX = {
   order: {
-    draft: 0,
-    approved: 1,
-    partial: 1,
-    delivered_partial: 1,
-    delivered: 2,
+    draft:     0,
+    approved:  1,
+    partial:   2,
+    completed: 3,
   },
   delivery: {
-    draft: 0,
+    draft:     0,
     delivered: 1,
   },
   invoice: {
-    draft: 0,
+    draft:    0,
     approved: 1,
-    sent: 2,
-    paid: 3,
+    sent:     2,
+    paid:     3,
   },
   payment: {
-    draft: 0,
-    pending: 0,
+    draft:     0,
+    pending:   0,
     confirmed: 1,
   },
 };
 
-// Statuses that mean the workflow is terminal/cancelled
-const TERMINAL_STATUSES = ['cancelled', 'closed'];
+// Statuses that mean the workflow is terminal/cancelled (all steps muted)
+const TERMINAL_STATUSES = ['cancelled'];
 
 export default {
   props: {
