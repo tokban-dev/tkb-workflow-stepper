@@ -114,11 +114,20 @@ export default {
       return `tk-size-${s}`;
     });
 
-    // ── Root style with CSS variables ──
+    // ── Root style with CSS variables + inline layout ──
+    // Layout props are inline so WeWeb's parent containers can't override them
     const rootStyle = computed(() => ({
       '--tk-active-color':    props.content?.activeColor    || '#2C3131',
       '--tk-completed-color': props.content?.completedColor || '#4CAF50',
       '--tk-font':            props.content?.fontFamily     || 'inherit',
+      display:       'flex',
+      flexDirection: 'row',
+      flexWrap:      'nowrap',
+      alignItems:    'center',
+      gap:           '0px',
+      width:         'max-content',
+      minWidth:      'max-content',
+      fontFamily:    props.content?.fontFamily || 'inherit',
     }));
 
     // ── Step state class ──
