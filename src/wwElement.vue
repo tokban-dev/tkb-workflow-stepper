@@ -1,20 +1,23 @@
 <template>
   <div class="tk-stepper-root" :style="rootStyle">
-    <template v-for="(step, i) in steps" :key="step">
-      <!-- Connector line (not before first step) -->
-      <span
-        v-if="i > 0"
-        class="tk-connector"
-        :style="connectorInlineStyle(i)"
-      ></span>
-      <!-- Step pill -->
-      <span
-        class="tk-step"
-        :class="[sizeClass, stepClass(i)]"
-        :style="stepStyle(i)"
-        @click="handleStepClick(step, i)"
-      >{{ step.toUpperCase() }}</span>
-    </template>
+    <!-- Inner track: WeWeb only controls the root div, this one is ours -->
+    <div class="tk-stepper-track" :style="trackStyle">
+      <template v-for="(step, i) in steps" :key="step">
+        <!-- Connector line (not before first step) -->
+        <span
+          v-if="i > 0"
+          class="tk-connector"
+          :style="connectorInlineStyle(i)"
+        ></span>
+        <!-- Step pill -->
+        <span
+          class="tk-step"
+          :class="[sizeClass, stepClass(i)]"
+          :style="stepStyle(i)"
+          @click="handleStepClick(step, i)"
+        >{{ step.toUpperCase() }}</span>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -114,12 +117,15 @@ export default {
       return `tk-size-${s}`;
     });
 
-    // ── Root style with CSS variables + inline layout ──
-    // Layout props are inline so WeWeb's parent containers can't override them
+    // ── Root style: only CSS variables (WeWeb controls layout on root) ──
     const rootStyle = computed(() => ({
       '--tk-active-color':    props.content?.activeColor    || '#2C3131',
       '--tk-completed-color': props.content?.completedColor || '#4CAF50',
       '--tk-font':            props.content?.fontFamily     || 'inherit',
+    }));
+
+    // ── Track style: actual layout (WeWeb can't touch this inner div) ──
+    const trackStyle = computed(() => ({
       display:       'flex',
       flexDirection: 'row',
       flexWrap:      'nowrap',
@@ -219,6 +225,7 @@ export default {
       steps,
       sizeClass,
       rootStyle,
+      trackStyle,
       isCancelled,
       stepClass,
       stepStyle,
