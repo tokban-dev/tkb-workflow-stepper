@@ -130,7 +130,7 @@ export default {
       flexDirection: 'row',
       flexWrap:      'nowrap',
       alignItems:    'center',
-      gap:           '0px',
+      gap:           props.content?.connectorSpacing || '4px',
       width:         'max-content',
       minWidth:      'max-content',
       fontFamily:    props.content?.fontFamily || 'inherit',

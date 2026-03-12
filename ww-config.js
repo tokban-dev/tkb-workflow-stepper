@@ -148,23 +148,19 @@ export default {
       },
       /* wwEditor:end */
     },
-    connectorLineStyle: {
-      label: { en: 'Connector Style' },
-      type: 'TextSelect',
+    connectorSpacing: {
+      label: { en: 'Connector Spacing' },
+      type: 'Length',
       section: 'style',
-      options: {
-        options: [
-          { value: 'solid',  label: 'Solid' },
-          { value: 'dashed', label: 'Dashed' },
-          { value: 'dotted', label: 'Dotted' },
-        ],
-      },
-      defaultValue: 'solid',
+      defaultValue: '4px',
       bindable: true,
       /* wwEditor:start */
       bindingValidation: {
         type: 'string',
-        tooltip: 'Valid values: solid | dashed | dotted',
+        tooltip: 'Gap between each step pill and its connector line (e.g. 4px, 8px).',
+      },
+      propertyHelp: {
+        tooltip: 'Controls the breathing room between step labels and the connecting lines.',
       },
       /* wwEditor:end */
     },
